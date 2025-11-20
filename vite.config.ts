@@ -1,4 +1,6 @@
+// ...existing code...
 import { defineConfig } from "vite";
+import type { Plugin } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
@@ -12,7 +14,16 @@ export default defineConfig(({ mode }) => ({
     port: 8080,
   },
 
-  plugins: [react(), mode === "development" && componentTagger().filter(Boolean)],
+  // build plugin array and filter undefined values with a type guard
+  plugins: [react(), mode === "development" ? componentTagger() : undefined].filter(
+    (p): p is Plugin => Boolean(p)
+  ),
+
+  // if you want GitHub Pages to serve from the 'docs' folder (project pages),
+  // uncomment the build.outDir setting below and add a publish step that uses `docs/`
+  build: {
+    // outDir: "docs",
+  },
 
   resolve: {
     alias: {
@@ -20,3 +31,4 @@ export default defineConfig(({ mode }) => ({
     },
   },
 }));
+// ...existing code...
