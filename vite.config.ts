@@ -19,10 +19,9 @@ export default defineConfig(({ mode }) => ({
     (p): p is Plugin => Boolean(p)
   ),
 
-  // if you want GitHub Pages to serve from the 'docs' folder (project pages),
-  // uncomment the build.outDir setting below and add a publish step that uses `docs/`
+  // produce output into docs/ so GitHub Pages (project pages) can serve it
   build: {
-    // outDir: "docs",
+    outDir: "docs",
   },
 
   resolve: {
